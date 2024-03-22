@@ -3,11 +3,8 @@
 import requests, os, json
 from bs4 import BeautifulSoup
 
-test_domain = 'https://www.fao.org/3/AC854T/'
-target_file = 'AC854T03.htm'
-test_uri = test_domain + target_file
+target_domain = 'https://www.fao.org/3/AC854T/'
 output_dir = 'data/site/'
-output_file = output_dir + target_file
 
 def pull_test_file(uri:str, filepath:str):
     r = requests.get(uri,filepath)
@@ -26,7 +23,6 @@ def transform_html_to_dict(filepath):
     html = ""
     with open(filepath) as tw:
         html = tw.read()
-    food = dict()
     soup = BeautifulSoup(html,'html.parser')
     row_index = 0
     item_number = 0
@@ -63,7 +59,7 @@ def transform_html_to_dict(filepath):
         #    print("{}...{} --- {}".format(row_index, division_index, td.getText().strip()))
         #    division_index += 1
         row_index += 1
-    return food
+    #return food
 
 def get_next_page_uri(filepath):
     with open(filepath) as tw:
@@ -75,14 +71,27 @@ def get_next_page_uri(filepath):
 
 
 def main():
-    if not os.path.isfile(output_file):
-        pull_test_file(test_uri, output_file)
+    pass
+    #if not os.path.isfile(output_file):
+    #    pull_test_file(target_domain + target_file, output_dir + target_file)
 
-    food = transform_html_to_dict(output_file)
-    next_uri = get_next_page_uri(output_file)
-        
-    print(json.dumps(food,indent=4))
-    print(next_uri)
+    #food = transform_html_to_dict(output_dir + target_file)
+    #next_uri = get_next_page_uri(output_dir + target_file)
+    #    
+    #print(json.dumps(food,indent=4))
+    #print(next_uri)
+
 
 if __name__ == '__main__':
-    main()
+    food = dict()
+    #main()
+    start_file = 'AC854T03.htm'
+    next_file = start_file
+
+    while next_file != None:
+        if not os.path.isfile(output_dir + next_file):
+            pull_test_file(target_domain + next_file, output_dir + next_file)
+        #print(next_file)
+        transform_html_to_dict(output_dir + next_file)
+        next_file = get_next_page_uri(output_dir + next_file)
+    print(json.dumps(food,indent=4))
