@@ -71,20 +71,6 @@ def get_next_page_uri(filepath):
 
 
 def main():
-    pass
-    #if not os.path.isfile(output_file):
-    #    pull_test_file(target_domain + target_file, output_dir + target_file)
-
-    #food = transform_html_to_dict(output_dir + target_file)
-    #next_uri = get_next_page_uri(output_dir + target_file)
-    #    
-    #print(json.dumps(food,indent=4))
-    #print(next_uri)
-
-
-if __name__ == '__main__':
-    food = dict()
-    #main()
     start_file = 'AC854T03.htm'
     next_file = start_file
 
@@ -95,3 +81,7 @@ if __name__ == '__main__':
         transform_html_to_dict(output_dir + next_file)
         next_file = get_next_page_uri(output_dir + next_file)
     print(json.dumps(food,indent=4))
+
+if __name__ == '__main__':
+    food = dict()
+    main()
