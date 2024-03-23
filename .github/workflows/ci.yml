@@ -1,24 +1,29 @@
 name: Run Unittests
 on:
-  push:
-    branches:
-      - 1-establish-tdd-process-linked-to-project-items
-  pull_request:
-    branches:
-      - main
+    push:
+        branches:
+            - 1-establish-tdd-process-linked-to-project-items
+    pull_request:
+        branches:
+            - main
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install Python 3
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.11
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-      - name: Run tests with pytest
-        run: python -m unittest test/*.py
+    build:
+        runs-on: self-hosted
+        steps:
+            - uses: actions/checkout@v4
+            - name: Install Python 3
+              uses: actions/setup-python@v4
+              with:
+                python-version: 3.11
+            - name: Install dependencies
+              run: |
+                python -m pip install --upgrade pip
+                pip install -r requirements.txt
+            - name: Run tests with pytest
+              run: python -m unittest test/*.py
+            - name: Publish Test Results
+              uses: EnricoMi/publish-unit-test-result-action@v1
+              if: always()
+              with:
+                files: test-results.xml
