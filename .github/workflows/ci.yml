@@ -22,14 +22,13 @@ jobs:
               run: |
                 python -m pip install --upgrade pip
                 pip install -r requirements.txt
-                pip install pytest
             - name: get environment
               run: |
                 env
                 pwd
                 ls ./test/extract_test.py
-            - name: Run tests with pytest
-              run:  pytest
+            - name: Run tests with unittest
+              run:  python -m unittest test/test_extract.py
             - name: Publish Test Results
               uses: EnricoMi/publish-unit-test-result-action@v1
               if: always()
