@@ -9,7 +9,7 @@ on:
 
 jobs:
     build:
-        runs-on: self-hosted
+        runs-on: ubuntu2310-123
         steps:
             - uses: actions/checkout@v4
             - name: Install Python 3
