@@ -26,7 +26,7 @@ jobs:
               run: |
                 env
                 pwd
-                ls ./test/extract_test.py
+                ls ./test/test_extract.py
             - name: Run tests with unittest
               run:  python -m unittest test/test_extract.py
             - name: Publish Test Results
