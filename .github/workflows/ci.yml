@@ -1,11 +1,5 @@
 name: Run Unittests
-on:
-    push:
-        branches:
-            - 1-establish-tdd-process-linked-to-project-items
-    pull_request:
-        branches:
-            - main
+on: push
 jobs:
     build:
         runs-on: self-hosted
