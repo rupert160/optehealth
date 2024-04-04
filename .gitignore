@@ -1,1 +1,6 @@
 data
+src/__pycache__
+test/__pycache__
+poetry.lock
+actions-runner
+self-hosted-runner.sh

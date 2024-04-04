@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 target_domain = 'https://www.fao.org/3/AC854T/'
 output_dir = 'data/site/'
 
-def pull_test_file(uri:str, filepath:str):
+def pull_file(uri:str, filepath:str):
     r = requests.get(uri,filepath)
     r.status_code
     with open(filepath,'w') as tw:
@@ -76,7 +76,7 @@ def main():
 
     while next_file != None:
         if not os.path.isfile(output_dir + next_file):
-            pull_test_file(target_domain + next_file, output_dir + next_file)
+            pull_file(target_domain + next_file, output_dir + next_file)
         #print(next_file)
         transform_html_to_dict(output_dir + next_file)
         next_file = get_next_page_uri(output_dir + next_file)
