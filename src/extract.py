@@ -4,7 +4,7 @@ import requests, os, json
 from bs4 import BeautifulSoup
 
 target_domain = 'https://www.fao.org/3/AC854T/'
-output_dir = 'data/site/'
+output_dir = '/opt/app/mnt/data/site/'
 
 def pull_file(uri:str, filepath:str):
     r = requests.get(uri,filepath)
@@ -19,7 +19,7 @@ def str_to_int(input_str:str):
         if input_str == '-':
             return None
 
-def transform_html_to_dict(filepath):
+def transform_html_to_dict(filepath,food):
     html = ""
     with open(filepath) as tw:
         html = tw.read()
@@ -70,18 +70,32 @@ def get_next_page_uri(filepath):
             return a['href']
 
 
-def main():
+def derive_food():
     start_file = 'AC854T03.htm'
     next_file = start_file
+    food = dict()
 
     while next_file != None:
         if not os.path.isfile(output_dir + next_file):
             pull_file(target_domain + next_file, output_dir + next_file)
         #print(next_file)
-        transform_html_to_dict(output_dir + next_file)
+        transform_html_to_dict(output_dir + next_file, food)
         next_file = get_next_page_uri(output_dir + next_file)
-    print(json.dumps(food,indent=4))
+    return food
+
+def pull_food_cache(file_path):
+    if not os.path.exists(file_path):
+        food = derive_food()
+        json_data = json.dumps(food,indent=4)
+        del food
+        with open(file_path, 'w') as file:
+            file.write(json_data)
+
+    with open(file_path, 'r') as file:
+        return json.load(file)
 
 if __name__ == '__main__':
-    food = dict()
-    main()
+
+    file_path = "/opt/app/mnt/data/temp.json"
+    food2 = pull_food_cache(file_path)
+    print(json.dumps(food2,indent=4))

@@ -12,3 +12,4 @@ Covert to readable construct for Python (1st draft completed)
 Need to revalidate the data with a dietition and update downloaded data and plan website calculations.
 Publish on website, including aggregation and recommendation tools (Next)
 
+Run Extraction method: cd ./app; ./src/extract.py

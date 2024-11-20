@@ -12,6 +12,7 @@ beautifulsoup4 = "^4.12.3"
 requests = "^2.31.0"
 Flask = "^3.0.2"
 bpython = "^0.24"
+fastapi = {extras = ["standard"], version = "^0.115.5"}
 
 
 [build-system]
