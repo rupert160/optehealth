@@ -13,6 +13,7 @@ requests = "^2.31.0"
 Flask = "^3.0.2"
 bpython = "^0.24"
 fastapi = {extras = ["standard"], version = "^0.115.5"}
+elasticsearch = "^8.16.0"
 
 
 [build-system]
