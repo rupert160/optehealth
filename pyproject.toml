@@ -14,6 +14,8 @@ Flask = "^3.0.2"
 bpython = "^0.24"
 fastapi = {extras = ["standard"], version = "^0.115.5"}
 elasticsearch = "^8.16.0"
+starlette = "^0.41.3"
+rapidfuzz = "^3.10.1"
 
 
 [build-system]

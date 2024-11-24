@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Vegan Protein</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+    <h1>Your Protein Calculator</h1>
+    <p>Type in your food and it's weight - we calculate the proteins</p>
+
+    <form autocomplete="off" action="/search" method="get">
+        <div class="autocomplete" style="width:300px;">
+            <input type="text" id="myInput" name="query" placeholder="Search...">
+        </div>
+        <button type="submit">Search</button>
+        {% if results2 %}
+            {{ results2 }}
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th></th> <!-- Empty cell for the corner -->
+                        <th>Isoleucine</th>
+                        <th>Leucine</th>
+                        <th>Lysine</th>
+                        <th>Methionine</th>
+                        <th>Cystine</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>{{ results2[0] }}</th>
+                        <td>{{ results2[1]["Isoleucine"] }}</td>
+                        <td>{{ results2[1]["Leucine"] }}</td>
+                        <td>{{ results2[1]["Lysine"] }}</td>
+                        <td>{{ results2[1]["Methionine"] }}</td>
+                        <td>{{ results2[1]["Cystine"] }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        {% endif %} 
+    </form>
+    <script src="/static/autocomplete.js"></script>
+    <script>
+        var foods = {{ results | safe }};
+        autocomplete(document.getElementById("myInput"), foods);
+    </script>
+</body>
+</html>
